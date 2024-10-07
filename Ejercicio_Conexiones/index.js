@@ -105,3 +105,37 @@ async function consulta_banks() {
     }
 
   }
+
+  async function consulta_radios() {
+    try {
+      let respuesta = await fetch("https://api.boostr.cl/radios.json");
+      let data = await respuesta.json();
+      let banks = data.data;
+
+      console.log(data);
+
+      let pintar = "<h4 class=' p-5'>Lista de Bancos</h4>";
+      pintar += "<table class='table table-hover w-50 mx-auto d-block'>";
+      pintar +=
+        "<thead class='table-dark'><tr><th>Codigo</th><th>Nombre</th><th>Swift</th><th>Website</th></tr></thead>";
+      pintar += "<tbody class='align-center fw-medium'>";
+
+      pintar += banks
+        .map((bank) => {
+          return `
+                <tr>
+                    <td>${bank.name}</td>
+                    <td><img src="${bank.image["200"]}" alt="Logo de ${bank.name}" style="width: 150px; height: 150px;"></td>
+                    <td>${bank.stream}</td> 
+                    <td><a href="${bank.url}" target="_blank">${bank.website}</a></td>
+                </tr>
+            `;
+        })
+        .join("");
+
+      pintar += "</tbody></table>";
+      contenedor.innerHTML = pintar;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
