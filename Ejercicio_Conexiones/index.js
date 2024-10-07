@@ -120,8 +120,8 @@ async function consulta_banks() {
         "<thead class='table-dark'><tr><th>Codigo</th><th>Nombre</th><th>Swift</th><th>Website</th></tr></thead>";
       pintar += "<tbody class='align-center fw-medium'>";
 
-      pintar += banks
-        .map((bank) => {
+      pintar += banks.slice(0,5).map((bank) => {
+        
           return `
                 <tr>
                     <td>${bank.name}</td>
